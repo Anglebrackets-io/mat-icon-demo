@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "projects": {
+    "mat-icon-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/mat-icon-demo",
+      "sourceRoot": "apps/mat-icon-demo/src",
+      "prefix": "mat-icon-demo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/mat-icon-demo",
+            "index": "apps/mat-icon-demo/src/index.html",
+            "main": "apps/mat-icon-demo/src/main.ts",
+            "polyfills": "apps/mat-icon-demo/src/polyfills.ts",
+            "tsConfig": "apps/mat-icon-demo/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/mat-icon-demo/src/favicon.ico",
+              "apps/mat-icon-demo/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/mat-icon-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mat-icon-demo/src/environments/environment.ts",
+                  "with": "apps/mat-icon-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mat-icon-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mat-icon-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mat-icon-demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mat-icon-demo/tsconfig.app.json",
+              "apps/mat-icon-demo/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/mat-icon-demo/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/mat-icon-demo/jest.config.js",
+            "tsConfig": "apps/mat-icon-demo/tsconfig.spec.json",
+            "setupFile": "apps/mat-icon-demo/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "mat-icon-demo-e2e": {
+      "root": "apps/mat-icon-demo-e2e",
+      "sourceRoot": "apps/mat-icon-demo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/mat-icon-demo-e2e/cypress.json",
+            "tsConfig": "apps/mat-icon-demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mat-icon-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mat-icon-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mat-icon-demo-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/mat-icon-demo-e2e/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "mat-icon-demo"
+}
